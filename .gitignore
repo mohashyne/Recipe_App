@@ -29,3 +29,12 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# .env file
+.env
+
+# secrets.yml file
+config/secrets.yml
+
+# Ignore byebug command history file.
+.DS_Store
