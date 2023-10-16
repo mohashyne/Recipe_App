@@ -26,8 +26,9 @@ development:
   database: Recipe_App
   host: localhost
   username: postgres
-  password: Pas4all@1
-  port:  5432
+  password: jossychismosa
+  port: 5432
+
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -94,6 +95,4 @@ production:
   # password: <%= ENV["RECIPE_APP_DATABASE_PASSWORD"] %>
   database: Recipe_App
   host: localhost
-  username: postgres
-  password: Pas4all@1
   port:  5432
