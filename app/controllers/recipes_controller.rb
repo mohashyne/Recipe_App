@@ -9,10 +9,11 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.order(created_at: :desc)
-  end  
+  end
+
   def show
     @recipe = Recipe.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to recipes_path, alert: "Recipe not found."
+    redirect_to recipes_path, alert: 'Recipe not found.'
   end
 end
