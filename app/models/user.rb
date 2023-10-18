@@ -8,4 +8,5 @@ class User < ApplicationRecord
 
   has_many :foods, dependent: :destroy
   has_many :recipes
+  has_many :food_recipes, through: :recipes
 end
