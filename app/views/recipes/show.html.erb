@@ -1,9 +1,9 @@
-<div class="section-container">
-  <h1 class="main-title"><%= @recipe.name %></h1>
+<div class="container">
+  <h1 class="display-4"><%= @recipe.name %></h1>
 
-  <div class="page-content">
-    <div class="container_col-2 between">
-      <h2 class="subtitle">Preparation Time: <%= @recipe.preparation_time %></h2>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="h4">Preparation Time: <%= @recipe.preparation_time %></h2>
 
       <% if can? :manage, @recipe %>
         <div>
@@ -17,27 +17,28 @@
       <% end %>
     </div>
 
-    <h2 class="subtitle">Cooking Time: <%= @recipe.cooking_time %></h2>
-       <% if user_signed_in? %>
-  <p>User Role: <%= current_user.role %></p>
-  <p>Recipe Owner ID: <%= @recipe.user.id %></p>
-  <p>Current User ID: <%= current_user.id %></p>
-<% end %>
+<div class="col-md-6">
+    <h2 class="h4">Cooking Time: <%= @recipe.cooking_time %></h2>
+</div>
 
+    <h2 class="h4">Description:</h2>
+    <p><%= @recipe.description %></p>
 
-    <h2 class="subtitle">Description:</h2>
-    <p class="main-text"><%= @recipe.description %></p>
+   <div class="row justify-content-between">
+  <div class="col-md-6 mb-3"> <!-- Add margin bottom to create space -->
+    <%= link_to 'Generate shopping list', foods_path, class: 'btn btn-primary btn-block' %>
+  </div>
+  <div class="col-md-6"> <!-- Split into two columns -->
+    <% if can? :manage, @recipe %>
+      <%= link_to 'Add Ingredient', foods_path, class: 'btn btn-secondary btn-block' %>
+    <% end %>
+  </div>
+</div>
 
-    <div class="container_col-2 between">
-      <%= link_to 'Generate shopping list', foods_path, class: 'action-button' %>
-      <% if can? :manage, @recipe %>
-        <%= link_to 'Add Ingredient', foods_path, class: 'action-button' %>
-      <% end %>
-    </div>
 
     <% if can? :manage, @recipe %>
       <table class="table">
-        <thead class="table-header">
+        <thead class="thead-light">
           <tr>
             <th>Food</th>
             <th>Quantity</th>
