@@ -1,33 +1,55 @@
-<h1><%= @recipe.name %></h1>
-
-<% if current_user == @recipe.user || @recipe.is_public %>
+<div class="container">
+  <h1 class="display-4"><%= @recipe.name %></h1>
 
   <div class="row">
     <div class="col-md-6">
-      <p><strong>Description:</strong> <%= @recipe.description %></p>
+      <h2 class="h4">Preparation Time: <%= @recipe.preparation_time %></h2>
+
+      <% if can? :manage, @recipe %>
+        <div>
+          <%= turbo_frame_tag "Public" do %>
+            <%= button_to update_status_recipe_path(@recipe), method: :patch, class: 'toggle-button' do %>
+              <span class="toggle-button-title">Public</span>
+              <span class="toggle-button__label <%= 'is_public' if @recipe.public %>"></span>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
-    <div class="col-md-6">
-      <p><strong>Preparation Time:</strong> <%= @recipe.preparation_time %> minutes</p>
-      <p><strong>Cooking Time:</strong> <%= @recipe.cooking_time %> minutes</p>
-      <p><strong>Is Public:</strong> <%= @recipe.is_public ? 'True' : 'False' %></p>
-    </div>
+
+<div class="col-md-6">
+    <h2 class="h4">Cooking Time: <%= @recipe.cooking_time %></h2>
+</div>
+
+    <h2 class="h4">Description:</h2>
+    <p><%= @recipe.description %></p>
+
+   <div class="row justify-content-between">
+  <div class="col-md-6 mb-3"> 
+    <%= link_to 'Generate shopping list', foods_path, class: 'btn btn-primary btn-block' %>
   </div>
+  <div class="col-md-6"> 
+    <% if can? :manage, @recipe %>
+      <%= link_to 'Add Ingredient', foods_path, class: 'btn btn-secondary btn-block' %>
+    <% end %>
+  </div>
+</div>
 
-  <% if current_user == @recipe.user %>
-    <div class="form-group">
-      <%= link_to toggle_public_recipe_path(@recipe), method: :put, class: "btn btn-primary" do %>
-        <%= @recipe.is_public ? "Make Private" : "Make Public" %>
-      <% end %>
-    </div>
-  <% end %>
 
-  <% if current_user == @recipe.user %>
-    <div class="form-group">
-      <%= link_to new_food_path(recipe_id: @recipe.id), class: "btn btn-success" do %>
-        Add New Food
-      <% end %>
-    </div>
-  <% end %>
-<% else %>
-  <p>This recipe is private.</p>
-<% end %>
+    <% if can? :manage, @recipe %>
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th>Food</th>
+            <th>Quantity</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <%= render partial: 'partials/table_recipe_foods_item', collection: @recipe.food_recipes, as: :food_recipe %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
