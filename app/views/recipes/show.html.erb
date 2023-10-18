@@ -25,10 +25,10 @@
     <p><%= @recipe.description %></p>
 
    <div class="row justify-content-between">
-  <div class="col-md-6 mb-3"> <!-- Add margin bottom to create space -->
+  <div class="col-md-6 mb-3"> 
     <%= link_to 'Generate shopping list', foods_path, class: 'btn btn-primary btn-block' %>
   </div>
-  <div class="col-md-6"> <!-- Split into two columns -->
+  <div class="col-md-6"> 
     <% if can? :manage, @recipe %>
       <%= link_to 'Add Ingredient', foods_path, class: 'btn btn-secondary btn-block' %>
     <% end %>
