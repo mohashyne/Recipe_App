@@ -8,7 +8,7 @@ class RecipesController < ApplicationController
   #   end
 
   def index
-    @recipes = Recipe.order(created_at: :desc)
+    @recipes = Recipe.where(is_public: true).order(created_at: :desc)
   end
 
   def show
