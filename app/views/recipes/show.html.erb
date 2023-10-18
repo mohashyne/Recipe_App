@@ -1,5 +1,12 @@
 <h1><%= @recipe.name %></h1>
 
-<p>
-  <%= @recipe.description %> <!-- Asumiendo que hay una columna 'description' en tu modelo Recipe -->
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <p><strong>Description:</strong> <%= @recipe.description %></p>
+  </div>
+  <div class="col-md-6">
+    <p><strong>Preparation Time:</strong> <%= @recipe.preparation_time %> minutes</p>
+    <p><strong>Cooking Time:</strong> <%= @recipe.cooking_time %> minutes</p>
+    <p><strong>Is Public:</strong> <%= @recipe.is_public ? 'True' : 'False' %></p>
+  </div>
+</div>
