@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   
   get '/recipes', to: 'recipes#index', as: 'recipes'
   get '/recipes/:id', to: 'recipes#show', as: 'recipe'
+
+  get '/inventories/:id', to: 'inventories#index', as: 'inventories'
+
+  
+  resources :inventories
   resources :recipes, only: [:index, :show] do
     patch 'update_status', on: :member
   end
