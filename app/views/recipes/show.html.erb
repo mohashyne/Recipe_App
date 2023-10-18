@@ -1,5 +1,33 @@
 <h1><%= @recipe.name %></h1>
 
-<p>
-  <%= @recipe.description %> <!-- Asumiendo que hay una columna 'description' en tu modelo Recipe -->
-</p>
+<% if current_user == @recipe.user || @recipe.is_public %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <p><strong>Description:</strong> <%= @recipe.description %></p>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Preparation Time:</strong> <%= @recipe.preparation_time %> minutes</p>
+      <p><strong>Cooking Time:</strong> <%= @recipe.cooking_time %> minutes</p>
+      <p><strong>Is Public:</strong> <%= @recipe.is_public ? 'True' : 'False' %></p>
+    </div>
+  </div>
+
+  <% if current_user == @recipe.user %>
+    <div class="form-group">
+      <%= link_to toggle_public_recipe_path(@recipe), method: :put, class: "btn btn-primary" do %>
+        <%= @recipe.is_public ? "Make Private" : "Make Public" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if current_user == @recipe.user %>
+    <div class="form-group">
+      <%= link_to new_food_path(recipe_id: @recipe.id), class: "btn btn-success" do %>
+        Add New Food
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>This recipe is private.</p>
+<% end %>
