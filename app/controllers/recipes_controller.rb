@@ -6,6 +6,9 @@ class RecipesController < ApplicationController
   #   def index
   #     @recipes = current_user.recipes
   #   end
+  def index
+    @inventories = current_user.inventories
+  end
 
   def index
     @recipes = Recipe.where(is_public: true).order(created_at: :desc)
