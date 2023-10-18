@@ -1,0 +1,9 @@
+<h1>My Inventories</h1>
+
+<ul>
+  <% @inventories.each do |inventory| %>
+    <li>
+      <%= link_to inventory.name, inventory %>
+    </li>
+  <% end %>
+</ul>

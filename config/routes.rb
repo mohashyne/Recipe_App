@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'inventories/index'
   devise_for :users
 
   get '/foods', to: 'foods#index'
