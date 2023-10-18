@@ -5,4 +5,3 @@ class InventoriesController < ApplicationController
     @inventories = current_user.inventories
   end
 end
-
