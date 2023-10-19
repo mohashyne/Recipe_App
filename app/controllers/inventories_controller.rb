@@ -11,6 +11,10 @@ class InventoriesController < ApplicationController
     end
   end
 
+  def show
+    @inventories = Inventory.all # Replace with the appropriate query to retrieve your inventory data
+  end
+
   def new
     @inventory = Inventory.new
   end

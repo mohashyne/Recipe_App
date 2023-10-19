@@ -14,7 +14,9 @@
         <td><%= link_to inventory.food.name, inventory_path(inventory) %></td>
         <td><%= inventory.quantity %> <%= inventory.food.unit %></td>
         <td>
-          <%= link_to 'Remove', inventory, method: :delete, data: { confirm: 'Are you sure?' } %>
+       <%= form_with(model: inventory, local: false, html: { method: :delete, data: { confirm: 'Are you sure?' } }) do |form| %>
+  <%= form.submit 'Remove', class: 'btn btn-danger' %>
+<% end %>
         </td>
       </tr>
     <% end %>

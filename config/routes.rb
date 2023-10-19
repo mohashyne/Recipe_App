@@ -15,6 +15,5 @@ Rails.application.routes.draw do
   get '/public', to: 'recipes#public'
 
 
-  # resources :inventories, only: [:index, :new, :create, :destroy]
-  resources :inventories, only: [:index, :new, :create, :destroy] 
+  resources :inventories, only: [:index, :show, :new, :create, :destroy] 
 end
