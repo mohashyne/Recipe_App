@@ -24,6 +24,12 @@ class InventoriesController < ApplicationController
     end
   end
 
+  def destroy
+    @inventory = Inventory.find(params[:id])
+    @inventory.destroy
+    redirect_to inventories_path, notice: 'Food removed from inventory.'
+  end
+  
   private
 
   def inventory_params
