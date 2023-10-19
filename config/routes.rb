@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-  devise_scope :user do
-    root to: 'devise/sessions#new'
-  end
+  root 'recipes#index'
+
 
   get '/foods', to: 'foods#index'
-  get '/inventories/:id', to: 'inventories#index', as: 'inventories'
+  #get '/inventories/:id', to: 'inventories#index', as: 'inventories'
+  get '/inventories', to: 'inventories#index', as: 'inventories'
+
 
   resources :recipes, only: [:index, :show] do
     patch 'update_status', on: :member
