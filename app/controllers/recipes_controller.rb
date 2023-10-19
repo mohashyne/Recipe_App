@@ -2,17 +2,6 @@ class RecipesController < ApplicationController
   #     # Devise for authentication
   before_action :authenticate_user!
 
-  #   TODO:
-  # # association between User and Recipe models
-  #   def index
-  #     @recipes = current_user.recipes
-  #   end
-
-  #   TODO:
-  #   def index
-  #     @inventories = current_user.inventories
-  #   end
-
   def index
     @recipes = current_user.recipes
     @missing_ingredients = {}
@@ -37,4 +26,10 @@ class RecipesController < ApplicationController
   def public
     @public_recipes = Recipe.where(public: true)
   end
+
+  def update_status
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(public: params[:public]) if params[:public].present?
+  end
+  
 end
