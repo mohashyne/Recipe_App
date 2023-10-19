@@ -33,4 +33,8 @@ class RecipesController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     redirect_to recipes_path, alert: 'Recipe not found.'
   end
+  def public
+    @public_recipes = Recipe.where(public: true)
+  end
+  
 end
