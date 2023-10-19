@@ -1,0 +1,8 @@
+<% @public_recipes.each do |recipe| %>
+  <div class="recipe">
+    <h2 class="text-primary"><%= recipe.name %></h2>
+    <p><strong>Cooking Time:</strong> <%= recipe.cooking_time %> minutes</p>
+    <p><strong>Description:</strong> <%= recipe.description %></p>
+  </div>
+<% end %>
+

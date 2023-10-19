@@ -11,9 +11,11 @@
   <tbody>
     <% @inventories.each do |inventory| %>
       <tr>
-        <td><%= inventory.food.name %></td>
+        <td><%= link_to inventory.food.name, inventory_path(inventory) %></td>
         <td><%= inventory.quantity %> <%= inventory.food.unit %></td>
-        <td><%= link_to 'Remove', inventory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Remove', inventory, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
