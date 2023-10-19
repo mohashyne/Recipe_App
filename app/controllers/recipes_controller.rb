@@ -31,5 +31,4 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.update(public: params[:public]) if params[:public].present?
   end
-  
 end
