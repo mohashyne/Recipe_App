@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'inventories/index'
   devise_for :users
+  devise_scope :user do
+    root to: 'devise/sessions#new'
+  end
 
   get '/foods', to: 'foods#index'
   
