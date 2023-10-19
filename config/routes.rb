@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/inventories/:id', to: 'inventories#index', as: 'inventories'
 
   
-  resources :inventories
+  resources :inventories, only: [:index, :new, :create, :destroy]
   resources :recipes, only: [:index, :show] do
     patch 'update_status', on: :member
   end

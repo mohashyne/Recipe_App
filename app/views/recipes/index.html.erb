@@ -4,6 +4,14 @@
   <% @recipes.each do |recipe| %>
     <li>
       <%= link_to recipe.name, recipe_path(recipe) %>
+      <% if @missing_ingredients[recipe.id] %>
+        <p>Missing Ingredients:</p>
+        <ul>
+          <% @missing_ingredients[recipe.id].each do |ingredient| %>
+            <li><%= ingredient.name %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </li>
   <% end %>
 </ul>
