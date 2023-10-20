@@ -2,18 +2,20 @@ Rails.application.routes.draw do
   devise_for :users
   root 'recipes#index'
 
-
   get '/foods', to: 'foods#index'
-  # get '/inventories/:id', to: 'inventories#index', as: 'inventories'
-  # get '/inventories', to: 'inventories#index', as: 'inventories'
+  get '/foods/new', to: 'foods#new', as: 'new_food'
+  resources :foods, only: [:create,:destroy]
 
-  resources :recipes, only: [:index, :show] do
+  resources :recipes, only: [:index, :new, :create, :show, :destroy] do
     patch 'update_status', on: :member
+    resources :food_recipes, only: [:new, :create, :edit, :update, :destroy]
   end
+  
 
+  get '/public', to: 'recipes#new'
+  resources :inventories, only: [:index, :show, :new, :create, :destroy]
 
-  get '/public', to: 'recipes#public'
-
-
-  resources :inventories, only: [:index, :show, :new, :create, :destroy] 
+  # Route for the 'General shopping list' page handled by FoodRecipesController
+  get '/general_shopping_list', to: 'food_recipes#general_shopping_list', as: 'general_shopping_list'
+  
 end
