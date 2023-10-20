@@ -18,11 +18,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+        <%= link_to 'Add New Recipe', new_recipe_path, class: "nav-link" %>
+      </li>
           <li class="nav-item">
             <%= link_to 'Recipes', recipes_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Add New Recipes', new_recipe_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to 'Foods', foods_path, class: "nav-link" %>
