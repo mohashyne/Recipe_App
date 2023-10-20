@@ -38,31 +38,54 @@
   </div>
 </div>
 
+<!-- Inventory Modal -->
+<div id="inventoryModal" class="modal">
+  <div class="modal-content">
+    <h2>Generating Shopping List</h2>
+    <h3>Choose an inventory to use</h3>
+    <select id="inventoryDropdown">
+       <option value="1">Inventory 1</option> 
+      <option value="2">Inventory 2</option>
+    </select>
+    <button id="generateInventoryButton">Generate</button>
+  </div>
+</div>
+
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const generateShoppingButton = document.getElementById('generateShoppingButton');
-    const inventoryModal = document.getElementById('inventoryModal');
-    const generateInventoryButton = document.getElementById('generateInventoryButton');
-    const inventoryDropdown = document.getElementById('inventoryDropdown');
+  const generateShoppingButton = document.getElementById('generateShoppingButton');
+  const inventoryModal = document.getElementById('inventoryModal');
+  const generateInventoryButton = document.getElementById('generateInventoryButton');
+  const closeInventoryButton = document.getElementById('closeInventoryButton');
+  const inventoryDropdown = document.getElementById('inventoryDropdown');
 
-    // Rest of your JavaScript code
-
-    // Show the modal when the "Generate Shopping List" button is clicked
-    generateShoppingButton.addEventListener('click', function() {
-      inventoryModal.style.display = 'block';
-    });
-
-    // Handle the "Generate" button click
-    generateInventoryButton.addEventListener('click', function() {
-      // Get the selected inventory value from the dropdown
-      const selectedInventory = inventoryDropdown.value;
-
-      // Construct the URL for the shopping list page with the selected inventory
-      const shoppingListURL = `/shopping_list/${selectedInventory}`;
-
-      // Redirect to the shopping list page
-      window.location.href = shoppingListURL;
-    });
+  // Handle the "Generate Shopping List" button click
+  generateShoppingButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    inventoryModal.style.display = 'block';
   });
+
+  // Handle the "Close" button click
+  closeInventoryButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    inventoryModal.style.display = 'none';
+  });
+
+  // Handle the "Generate" button click
+  generateInventoryButton.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    // Get the selected inventory value from the dropdown
+    const selectedInventory = inventoryDropdown.value;
+
+    // Construct the URL for the shopping list page with the selected inventory
+    const shoppingListURL = `/shopping_list/${selectedInventory}`;
+
+    // Redirect to the shopping list page
+    window.location.href = shoppingListURL;
+  });
+});
+
 </script>
