@@ -1,9 +1,9 @@
 <div class="container">
-  <h1 class="display-4"><%= @recipe.name %></h1>
+  <h1 class="display-4 recipe-name"><%= @recipe.name %></h1>
 
   <div class="row">
     <div class="col-md-6">
-      <h2 class="h4">Preparation Time: <%= @recipe.preparation_time %></h2>
+      <h2 class="h4 preparation-time">Preparation Time: <%= @recipe.preparation_time %></h2>
 
       <% if can? :manage, @recipe %>
         <div>
@@ -17,39 +17,52 @@
       <% end %>
     </div>
 
-<div class="col-md-6">
-    <h2 class="h4">Cooking Time: <%= @recipe.cooking_time %></h2>
-</div>
+    <div class="col-md-6">
+      <h2 class="h4 cooking-time">Cooking Time: <%= @recipe.cooking_time %></h2>
+    </div>
 
-    <h2 class="h4">Description:</h2>
+    <h2 class="h4 description">Description:</h2>
     <p><%= @recipe.description %></p>
 
-   <div class="row justify-content-between">
-  <div class="col-md-6 mb-3"> 
-    <%= link_to 'Generate shopping list', foods_path, class: 'btn btn-primary btn-block' %>
-  </div>
-  <div class="col-md-6"> 
-    <% if can? :manage, @recipe %>
-      <%= link_to 'Add Ingredient', foods_path, class: 'btn btn-secondary btn-block' %>
-    <% end %>
+    <div class="row justify-content-between">
+      <div class="col-md-6 mb-3">
+        <%= link_to 'Generate shopping list', general_shopping_list_path, class: 'btn btn-primary btn-block generate-shopping-button', id: 'generateShoppingButton' %>
+
+      </div>
+      <div class="col-md-6">
+        <% if can? :manage, @recipe %>
+          <%= link_to 'Add Ingredient', foods_path, class: 'btn btn-secondary btn-block add-ingredient-button' %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
 
-    <% if can? :manage, @recipe %>
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th>Food</th>
-            <th>Quantity</th>
-            <th>Value</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody class="table-body">
-          <%= render partial: 'partials/table_recipe_foods_item', collection: @recipe.food_recipes, as: :food_recipe %>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
-</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const generateShoppingButton = document.getElementById('generateShoppingButton');
+    const inventoryModal = document.getElementById('inventoryModal');
+    const generateInventoryButton = document.getElementById('generateInventoryButton');
+    const inventoryDropdown = document.getElementById('inventoryDropdown');
+
+    // Rest of your JavaScript code
+
+    // Show the modal when the "Generate Shopping List" button is clicked
+    generateShoppingButton.addEventListener('click', function() {
+      inventoryModal.style.display = 'block';
+    });
+
+    // Handle the "Generate" button click
+    generateInventoryButton.addEventListener('click', function() {
+      // Get the selected inventory value from the dropdown
+      const selectedInventory = inventoryDropdown.value;
+
+      // Construct the URL for the shopping list page with the selected inventory
+      const shoppingListURL = `/shopping_list/${selectedInventory}`;
+
+      // Redirect to the shopping list page
+      window.location.href = shoppingListURL;
+    });
+  });
+</script>
