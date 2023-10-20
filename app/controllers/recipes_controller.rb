@@ -28,9 +28,13 @@ class RecipesController < ApplicationController
 
   def update_status
     @recipe = Recipe.find(params[:id])
-    @recipe.update(public: params[:public]) if params[:public].present?
+    if @recipe.update(public: params[:public])
+      render json: { status: 'success' }
+    else
+      render json: { status: 'error', message: @recipe.errors.full_messages.join(', ') }, status: 400
+    end
   end
-
+  
   def new
     @recipe = Recipe.new
   end

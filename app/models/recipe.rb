@@ -14,8 +14,8 @@ class Recipe < ApplicationRecord
   validates :public, inclusion: { in: [true, false] }
 
   def total_price
-    food_recipes.includes(:food).sum { |_recipe_food| food_recipe.food.price * food_recipe.quantity }
-  end
+    food_recipes.includes(:food).sum { |food_recipe| food_recipe.food.price * food_recipe.quantity }
+  end  
 
   def count_ingredients
     foods.count

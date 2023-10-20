@@ -8,22 +8,22 @@
      
     </div>
 
- <%# Toggle button for public/private %>
- <div class="col-md-6">
-  <% if can? :manage, @recipe %>
-    <div class="toggle-container">
-      <%= turbo_frame_tag "Public" do %>
-        <button class="toggle-button" id="toggleButton">
-          <span class="toggle-label">Public</span>
-          <div class="toggle-switch">
-            <div class="toggle-handle"></div>
-          </div>
-        </button>
+    <%# Toggle button for public/private %>
+    <div class="col-md-6">
+      <% if can? :manage, @recipe %>
+        <div class="toggle-container">
+          <%= turbo_frame_tag "Public" do %>
+            <button class="toggle-button <%= 'is-public' if @recipe.public %>" id="toggleButton">
+              <span class="toggle-label">Public</span>
+              <div class="toggle-switch">
+                <div class="toggle-handle"></div>
+              </div>
+            </button>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% end %>
-</div>
-
+    
 
 
  
@@ -95,16 +95,15 @@
   });
 });
 
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const toggleButton = document.getElementById('toggleButton');
 
-    // Initially, set the state based on the @recipe.public value
-    let isPublic = <%= @recipe.public ? 'true' : 'false' %>;
+    // Obtener el estado inicial basado en la clase del botón
+    let isPublic = toggleButton.classList.contains('is-public');
 
     // Function to update the button's state and class
     const updateToggleButton = () => {
-      isPublic = !isPublic; // Toggle the state
-      toggleButton.classList.toggle('is-public', isPublic); // Add or remove the 'is-public' class
+      toggleButton.classList.toggle('is-public'); // Add or remove the 'is-public' class
     };
 
     // Add a click event listener to the button
@@ -120,6 +119,7 @@
       })
       .then((response) => {
         if (response.ok) {
+          isPublic = !isPublic; // Toggle the state
           updateToggleButton();
         } else {
           console.error("Failed to update recipe status");
@@ -129,7 +129,8 @@
         console.error("Error:", error);
       });
     });
-  });
+});
+
 
 
 
