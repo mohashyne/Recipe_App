@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :food_recipes, only: [:new, :create, :edit, :update, :destroy]
   end
   
-
+  
   get '/public', to: 'recipes#new'
   resources :inventories, only: [:index, :show, :new, :create, :destroy]
 
