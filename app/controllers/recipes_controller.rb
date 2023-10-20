@@ -18,9 +18,9 @@ class RecipesController < ApplicationController
   end
 
   def show
-    #@recipe = Recipe.find(params[:id])
-  #rescue ActiveRecord::RecordNotFound
-    #redirect_to recipes_path, alert: 'Recipe not found.'
+    # @recipe = Recipe.find(params[:id])
+    # rescue ActiveRecord::RecordNotFound
+    # redirect_to recipes_path, alert: 'Recipe not found.'
     @recipe = Recipe.includes(:food_recipes).find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to recipes_path, alert: 'Recipe not found.'
@@ -34,4 +34,18 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.update(public: params[:public]) if params[:public].present?
   end
+
+  def new
+    @recipe = Recipe.new
+  end
+
+  def create
+    @recipe = Recipe.new
+    if @recipe.save
+      redirect_to @recipe, notice: "#{recipe.name}:  Recipe sucessfully created!"
+    else
+      render :new
+    end
+  end
+
 end

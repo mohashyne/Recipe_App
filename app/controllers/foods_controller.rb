@@ -13,7 +13,7 @@ class FoodsController < ApplicationController
   def create
     @food = Food.new(food_params)
     @food.user_id = current_user.id # Set the user_id to the ID of the current user
-  
+
     if @food.save
       flash[:notice] = 'The Food was created successfully!'
       redirect_to foods_path
@@ -21,7 +21,6 @@ class FoodsController < ApplicationController
       render :new
     end
   end
-  
 
   def destroy
     food = @food.find(params[:id])
