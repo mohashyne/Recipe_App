@@ -26,10 +26,6 @@ class RecipesController < ApplicationController
     redirect_to recipes_path, alert: 'Recipe not found.'
   end
 
-  def public
-    @public_recipes = Recipe.where(public: true)
-  end
-
   def update_status
     @recipe = Recipe.find(params[:id])
     @recipe.update(public: params[:public]) if params[:public].present?
@@ -40,11 +36,23 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.new
+    @recipe = current_user.recipes.new(recipe_params)
+
     if @recipe.save
-      redirect_to @recipes, notice: "#{recipe.name}:  Recipe sucessfully created!"
+      redirect_to recipes_path, Notice: 'Recipes added successfully'
     else
-      render :new
+      flash[:notice] = @recipe.errors.full_messages.join(', ')
+      redirect_to request.referrer
     end
+  end
+
+  def public_recipes
+    @recipes = Recipe.where(public: true).order(created_at: :desc)
+  end
+
+  private
+
+  def recipe_params
+    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public)
   end
 end

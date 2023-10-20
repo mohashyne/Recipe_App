@@ -6,6 +6,10 @@
     <%= f.collection_select :food_id, Food.all, :id, :name %>
   </div>
   <div>
+    <%= f.label :unit, "Unit" %>
+    <%= f.number_field :quantity %>
+  </div>
+  <div>
     <%= f.label :quantity, "Quantity" %>
     <%= f.number_field :quantity %>
   </div>

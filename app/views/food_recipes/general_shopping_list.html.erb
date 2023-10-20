@@ -1,25 +1,23 @@
-<div class="section-container">
-
-  <h1 class="main-title">Shopping List</h1>
-
-  <div class="page-content">
-
-    <div class="container_col-2 between">
-			<h2>Amount of food items to buy: <%= @foods.length %></h2>
-			<h2>Total value of food needed: <%= "$#{@total_general_price}" %></h2>
-    </div>
-
-      <table class="table">
-        <thead class="table-header">
-          <tr>
-            <th>Food</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody class="table-body">
-          <%= render partial: 'partials/table_general_shopping_list', collection: @foods, as: :ingredient %>
-        </tbody>
-      </table>
-  </div>
+<div class="users-container">
+<div class="food-recipe-container">
+<h2 style="text-align:center">Shopping List</h2>
+<div style="gap:25%; display:flex; margin-top:10%; margin-bottom:4%;">
+<p>Amount of food items to buy: <%= @foods.length%></p>
+<p>Total value fo food needed: <%= @total_value%></p>
+</div>
+<table>
+  <tr>
+    <th>Food</th>
+    <th>Quantity</th>
+    <th>Price</th>
+  </tr>
+  <% @foods.each do |food| %>
+    <tr>
+      <td><%= food.name %></td>
+      <td><%= food.quantity %> <%= food.measurement_unit %></td>
+      <td>$ <%= food.price * food.quantity %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
 </div>
