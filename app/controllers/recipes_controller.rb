@@ -57,6 +57,16 @@ class RecipesController < ApplicationController
     @recipes = Recipe.where(public: true).order(created_at: :desc)
   end
 
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    if @recipe.destroy
+      flash[:success] = "Recipe removed successfully."
+    else
+      flash[:error] = "Error removing the recipe."
+    end
+    redirect_to recipes_path
+  end
+
   private
 
   def recipe_params
