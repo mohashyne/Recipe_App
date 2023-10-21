@@ -7,7 +7,7 @@ class InventoriesController < ApplicationController
 
     @inventories.each do |inventory|
       food = Food.find(inventory.food_id)
-      @total_price += food.price * inventory.quantity
+      @total_price += (food.price || 0) * (inventory.quantity || 0)
     end
   end
 

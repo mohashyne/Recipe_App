@@ -18,15 +18,14 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
-    @inventories = @recipe.inventories
+    @recipe = Recipe.includes(:food_recipes).find(params[:id])
+    @inventories = current_user.inventories
     # @recipe = Recipe.find(params[:id])
     # rescue ActiveRecord::RecordNotFound
     # redirect_to recipes_path, alert: 'Recipe not found.'
-    @recipe = Recipe.includes(:food_recipes).find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to recipes_path, alert: 'Recipe not found.'
-    @inventories = Inventory.all
+    @inventories = current_user.inventories
   end
 
   def update_status

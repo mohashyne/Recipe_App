@@ -46,6 +46,7 @@
 <!-- Inventory Modal -->
 <div id="inventoryModal" class="modal">
   <div class="modal-content">
+  <span id="closeInventoryButton" style="float:right; cursor:pointer;">&times;</span>
     <h2>Generating Shopping List</h2>
     <h3>Choose an inventory to use</h3>
     <select id="inventoryDropdown">
@@ -87,7 +88,7 @@
     const selectedInventory = inventoryDropdown.value;
 
     // Construct the URL for the shopping list page with the selected inventory
-    const shoppingListURL = `/shopping_list/${selectedInventory}`;
+    const shoppingListURL = `/general_shopping_list/${selectedInventory}`;
 
     // Redirect to the shopping list page
     window.location.href = shoppingListURL;
