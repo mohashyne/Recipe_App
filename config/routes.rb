@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   
   
   get '/public', to: 'recipes#new'
-  resources :inventories, only: [:index, :show, :new, :edit, :create, :destroy]
+  resources :inventories, only: [:index, :show, :new, :edit,  :update, :create, :destroy]
 
   # Route for the 'General shopping list' page handled by FoodRecipesController
   get '/general_shopping_list', to: 'general_shopping_list#shopping_list', as: 'general_shopping_list'
