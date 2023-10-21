@@ -22,7 +22,6 @@ class InventoriesController < ApplicationController
   def edit
     @inventory = Inventory.find(params[:id])
   end
-  
 
   def create
     @inventory = current_user.inventories.build(inventory_params)

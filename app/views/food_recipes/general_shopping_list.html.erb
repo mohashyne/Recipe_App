@@ -1,23 +1,27 @@
 <div class="users-container">
-<div class="food-recipe-container">
-<h2 style="text-align:center">Shopping List</h2>
-<div style="gap:25%; display:flex; margin-top:10%; margin-bottom:4%;">
-<p>Amount of food items to buy: <%= @foods.length%></p>
-<p>Total value fo food needed: <%= @total_value%></p>
-</div>
-<table>
-  <tr>
-    <th>Food</th>
-    <th>Quantity</th>
-    <th>Price</th>
-  </tr>
-  <% @foods.each do |food| %>
-    <tr>
-      <td><%= food.name %></td>
-      <td><%= food.quantity %> <%= food.measurement_unit %></td>
-      <td>$ <%= food.price * food.quantity %></td>
-    </tr>
-  <% end %>
-</table>
-</div>
+  <div class="food-recipe-container">
+    <h2 style="text-align:center">Shopping List</h2>
+    <div class="row" style="margin-top:10%; margin-bottom:4%;">
+      <div class="col-md-6">
+        <p>Amount of food items to buy: <%= @foods.length %></p>
+        <p>Total value of food needed: <%= @total_value %></p>
+      </div>
+      <div class="col-md-6">
+        <p>Recipe: </p>
+        <p>Inventory: </p>
+      </div>
+    </div>
+    <table class="table">
+      <thead class="table-header">
+        <tr>
+          <th>Food</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <%= render partial: 'partials/table_food_item', collection: @foods, as: :food %>
+      </tbody>
+    </table>
+  </div>
 </div>

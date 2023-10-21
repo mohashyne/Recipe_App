@@ -53,7 +53,7 @@
     <option value="<%= inventory.id %>"><%= inventory.food.name %></option>
   <% end %>
     </select>
-    <button id="generateInventoryButton">Generate</button>
+    <button id="generateInventoryButton"><%= link_to "Generate Shopping List", general_shopping_list_path, class: "btn btn-primary" %></button>
   </div>
 </div>
 
