@@ -38,6 +38,7 @@ gem 'jbuilder'
 group :development, :test do
   gem 'cancancan'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails'
 end
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
