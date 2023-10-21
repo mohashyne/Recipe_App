@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>Food</th>
+    <th>Quantity</th>
+    <th>Actions</th>
+  </tr>
+  <% @inventories.each do |inventory| %>
+    <tr>
+      <td><%= inventory.food.name %> </td> <!-- Access the associated food's name -->
+      <td><%= inventory.quantity %> <%= inventory.food.measurement_unit %></td>
+      <td>
+        <%= form_with(model: inventory, local: false, html: { method: :delete, data: { confirm: 'Are you sure?' } }) do |form| %>
+          <%= form.submit 'Remove', class: 'btn btn-danger' %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
