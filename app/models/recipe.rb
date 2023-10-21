@@ -3,6 +3,7 @@ class Recipe < ApplicationRecord
     where(is_public: true).order(created_at: :desc)
   end
   belongs_to :user
+  has_many :inventories
   has_and_belongs_to_many :foods, join_table: 'recipe_foods'
   has_many :food_recipes, dependent: :destroy
 
@@ -15,7 +16,7 @@ class Recipe < ApplicationRecord
 
   def total_price
     food_recipes.includes(:food).sum { |food_recipe| food_recipe.food.price * food_recipe.quantity }
-  end  
+  end
 
   def count_ingredients
     foods.count

@@ -18,13 +18,15 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @recipe = Recipe.find(params[:id])
+    @inventories = @recipe.inventories
     # @recipe = Recipe.find(params[:id])
     # rescue ActiveRecord::RecordNotFound
     # redirect_to recipes_path, alert: 'Recipe not found.'
     @recipe = Recipe.includes(:food_recipes).find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to recipes_path, alert: 'Recipe not found.'
-    @inventories = Inventory.all 
+    @inventories = Inventory.all
   end
 
   def update_status
@@ -35,7 +37,7 @@ class RecipesController < ApplicationController
       render json: { status: 'error', message: @recipe.errors.full_messages.join(', ') }, status: 400
     end
   end
-  
+
   def new
     @recipe = Recipe.new
   end

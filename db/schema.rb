@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_20_215856) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_21_014124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_215856) do
     t.integer "quantity"
     t.integer "food_id"
     t.text "description"
+    t.bigint "recipe_id", default: 1
+    t.index ["recipe_id"], name: "index_inventories_on_recipe_id"
     t.index ["user_id"], name: "index_inventories_on_user_id"
   end
 
@@ -82,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_20_215856) do
 
   add_foreign_key "food_recipes", "foods"
   add_foreign_key "food_recipes", "recipes"
+  add_foreign_key "inventories", "recipes"
   add_foreign_key "inventories", "users"
   add_foreign_key "recipes", "users"
 end

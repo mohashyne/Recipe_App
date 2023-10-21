@@ -19,6 +19,10 @@ class InventoriesController < ApplicationController
     @inventory = Inventory.new
   end
 
+  def edit
+    @inventory = Inventory.find(params[:id])
+  end
+
   def create
     @inventory = current_user.inventories.build(inventory_params)
     if @inventory.save

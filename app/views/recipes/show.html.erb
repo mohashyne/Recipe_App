@@ -4,8 +4,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="h4 preparation-time">Preparation Time: <%= @recipe.preparation_time %></h2>
- <h2 class="h4 cooking-time">Cooking Time: <%= @recipe.cooking_time %></h2>
-     
+      <h2 class="h4 cooking-time">Cooking Time: <%= @recipe.cooking_time %></h2>
     </div>
 
     <%# Toggle button for public/private %>
@@ -23,10 +22,6 @@
         </div>
       <% end %>
     </div>
-    
-
-
- 
 
     <h2 class="h4 description">Description:</h2>
     <p><%= @recipe.description %></p>
@@ -34,7 +29,6 @@
     <div class="row justify-content-between">
       <div class="col-md-6 mb-3">
         <%= link_to 'Generate shopping list', general_shopping_list_path, class: 'btn btn-primary btn-block generate-shopping-button', id: 'generateShoppingButton' %>
-
       </div>
       <div class="col-md-6">
         <% if can? :manage, @recipe %>
@@ -45,20 +39,23 @@
   </div>
 </div>
 
+  <div class="inventory-section">
+    <%= render 'inventories/show' %>
+  </div>
+
 <!-- Inventory Modal -->
 <div id="inventoryModal" class="modal">
   <div class="modal-content">
     <h2>Generating Shopping List</h2>
     <h3>Choose an inventory to use</h3>
     <select id="inventoryDropdown">
-       <option value="1">Inventory 1</option> 
+      <option value="1">Inventory 1</option>
       <option value="2">Inventory 2</option>
     </select>
     <button id="generateInventoryButton">Generate</button>
   </div>
 </div>
 
-<%# DISPLAY INVENTORY TABLE HERE ACCORDING  TO THE WIREFRAMES %>
 
 
 <script>
