@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   # Route for the 'General shopping list' page handled by FoodRecipesController
   get '/general_shopping_list', to: 'food_recipes#general_shopping_list', as: 'general_shopping_list'
 
+  get 'general_shopping_list', to: 'home#shopping_list'
   
 end

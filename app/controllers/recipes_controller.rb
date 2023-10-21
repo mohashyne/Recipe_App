@@ -60,9 +60,9 @@ class RecipesController < ApplicationController
   def destroy
     @recipe = Recipe.find(params[:id])
     if @recipe.destroy
-      flash[:success] = "Recipe removed successfully."
+      flash[:success] = 'Recipe removed successfully.'
     else
-      flash[:error] = "Error removing the recipe."
+      flash[:error] = 'Error removing the recipe.'
     end
     redirect_to recipes_path
   end
