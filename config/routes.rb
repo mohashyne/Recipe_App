@@ -17,8 +17,7 @@ Rails.application.routes.draw do
   resources :inventories, only: [:index, :show, :new, :edit, :create, :destroy]
 
   # Route for the 'General shopping list' page handled by FoodRecipesController
-  get '/general_shopping_list', to: 'food_recipes#general_shopping_list', as: 'general_shopping_list'
+  get '/general_shopping_list', to: 'general_shopping_list#shopping_list', as: 'general_shopping_list'
 
-  get 'general_shopping_list', to: 'home#shopping_list'
   
 end

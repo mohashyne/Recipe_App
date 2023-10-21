@@ -82,16 +82,17 @@
 
   // Handle the "Generate" button click
   generateInventoryButton.addEventListener('click', function(event) {
-    event.preventDefault();
-
-    // Get the selected inventory value from the dropdown
-    const selectedInventory = inventoryDropdown.value;
-
-    // Construct the URL for the shopping list page with the selected inventory
-    const shoppingListURL = `/general_shopping_list/${selectedInventory}`;
-
-    // Redirect to the shopping list page
-    window.location.href = shoppingListURL;
+      event.preventDefault();
+  
+      // Get the selected inventory value from the dropdown
+      const selectedInventory = inventoryDropdown.value;
+      const recipeId = "<%= @recipe.id %>"; // Assuming this is the current recipe's ID
+  
+      // Construct the URL for the shopping list page with the selected inventory and recipe
+      const shoppingListURL = `/general_shopping_list?inventory_id=${selectedInventory}&recipe_id=${recipeId}`;
+  
+      // Redirect to the shopping list page
+      window.location.href = shoppingListURL;
   });
 });
 
