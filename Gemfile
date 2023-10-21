@@ -9,12 +9,6 @@ gem 'rails', '~> 7.0.8'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
-group :development, :test do
-  # ...
-  gem 'rspec-rails'
-  # ...
-end
-
 # Use postgresql as the database for Active Record
 gem 'font-awesome-rails'
 
@@ -44,6 +38,7 @@ gem 'jbuilder'
 group :development, :test do
   gem 'cancancan'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails'
 end
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]

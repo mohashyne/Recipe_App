@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 describe "Visit the general_shopping_list page of 'recipe foods'", type: :feature do
