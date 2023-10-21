@@ -25,13 +25,8 @@ RSpec.feature 'Home Page', type: :feature do
     background do
       login_as(user, scope: :user) # Sign in the user using Warden
     end
-
-   
-    
   end
 end
-
-require 'rails_helper'
 
 RSpec.feature 'Home Page', type: :feature do
   scenario 'visiting the home page' do
@@ -58,7 +53,5 @@ RSpec.feature 'Home Page', type: :feature do
     background do
       login_as(user, scope: :user) # Sign in the user using Warden
     end
-
-    
   end
 end
