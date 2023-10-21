@@ -24,6 +24,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.includes(:food_recipes).find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to recipes_path, alert: 'Recipe not found.'
+    @inventories = Inventory.all 
   end
 
   def update_status
