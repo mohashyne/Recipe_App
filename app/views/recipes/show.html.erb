@@ -49,8 +49,9 @@
     <h2>Generating Shopping List</h2>
     <h3>Choose an inventory to use</h3>
     <select id="inventoryDropdown">
-      <option value="1">Inventory 1</option>
-      <option value="2">Inventory 2</option>
+     <% @inventories.each do |inventory| %>
+    <option value="<%= inventory.id %>"><%= inventory.food.name %></option>
+  <% end %>
     </select>
     <button id="generateInventoryButton">Generate</button>
   </div>
