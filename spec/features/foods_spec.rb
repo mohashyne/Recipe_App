@@ -1,7 +1,7 @@
 # spec/features/foods_spec.rb
 require 'rails_helper'
 
-RSpec.feature "Foods", type: :feature do
+RSpec.feature 'Foods', type: :feature do
   let(:user) { create(:user) }
 
   before do
@@ -11,15 +11,15 @@ RSpec.feature "Foods", type: :feature do
 
   describe 'Food List Page' do
     context 'when there are no foods' do
-        it 'shows a message indicating no foods are available' do
-            Food.delete_all
-            visit foods_path
-            expect(page).not_to have_css('tbody.table-body tr')
-        end          
+      it 'shows a message indicating no foods are available' do
+        Food.delete_all
+        visit foods_path
+        expect(page).not_to have_css('tbody.table-body tr')
+      end
     end
 
     context 'when there are foods' do
-      let!(:foods) { create_list(:food, 3, user: user) }
+      let!(:foods) { create_list(:food, 3, user:) }
 
       it 'displays the list of foods' do
         visit foods_path
@@ -37,27 +37,27 @@ RSpec.feature "Foods", type: :feature do
     it 'allows user to add a new food' do
       visit new_food_path
 
-      fill_in "Name", with: "NewFoodItem"
-      select "grams", from: 'food_measurement_unit'
-      fill_in "food[price]", with: 10.0
-      fill_in "Quantity", with: 5
-      click_on "Save food"
+      fill_in 'Name', with: 'NewFoodItem'
+      select 'grams', from: 'food_measurement_unit'
+      fill_in 'food[price]', with: 10.0
+      fill_in 'Quantity', with: 5
+      click_on 'Save food'
 
-      expect(page).to have_content("NewFoodItem")
+      expect(page).to have_content('NewFoodItem')
     end
   end
 
   describe 'Deleting a Food' do
-    let!(:food_to_delete) { create(:food, name: 'FoodToDelete', user: user) }
+    let!(:food_to_delete) { create(:food, name: 'FoodToDelete', user:) }
 
     it 'allows user to delete a food' do
-        visit foods_path
-        within "tr", text: food_to_delete.name do
-          click_on 'Delete'
-        end
-    
-        # Check if the food name is no longer on the page
-        expect(page).not_to have_content(food_to_delete.name, wait: 10)
+      visit foods_path
+      within 'tr', text: food_to_delete.name do
+        click_on 'Delete'
+      end
+
+      # Check if the food name is no longer on the page
+      expect(page).not_to have_content(food_to_delete.name, wait: 10)
     end
-end
+  end
 end
