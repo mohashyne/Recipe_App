@@ -17,4 +17,8 @@ class Food < ApplicationRecord
   def general_price
     total_food * price
   end
+
+  def update_quantity
+    update(quantity: general_food_quantity)
+  end
 end

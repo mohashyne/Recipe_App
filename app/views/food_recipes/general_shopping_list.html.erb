@@ -7,9 +7,9 @@
         <p>Total value of food needed: <%= @total_value %></p>
       </div>
       <div class="col-md-6">
-        <p>Recipe: </p>
-        <p>Inventory: </p>
-      </div>
+      <p>Recipe: <%= @selected_recipe&.name %></p>
+      <p>Inventory: <%= @selected_inventory&.name %></p>      
+  </div>
     </div>
     <table class="table">
       <thead class="table-header">
@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody class="table-body">
-        <%= render partial: 'partials/table_food_item', collection: @foods, as: :food %>
+      <%= render partial: 'partials/table_food_item', collection: @foods_to_purchase, as: :food %>
       </tbody>
     </table>
   </div>
