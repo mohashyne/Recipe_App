@@ -19,6 +19,11 @@ class InventoriesController < ApplicationController
     @inventory = Inventory.new
   end
 
+  def edit
+    @inventory = Inventory.find(params[:id])
+  end
+  
+
   def create
     @inventory = current_user.inventories.build(inventory_params)
     if @inventory.save
@@ -37,6 +42,6 @@ class InventoriesController < ApplicationController
   private
 
   def inventory_params
-    params.require(:inventory).permit(:food_id, :quantity)
+    params.require(:inventory).permit(:food_id, :quantity, :description)
   end
 end

@@ -18,11 +18,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+        <%= link_to 'Add New Recipe', new_recipe_path, class: "nav-link" %>
+      </li>
           <li class="nav-item">
             <%= link_to 'Recipes', recipes_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Public Recipes', public_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to 'Foods', foods_path, class: "nav-link" %>
@@ -34,11 +34,7 @@
         <% if user_signed_in? %>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <%= link_to destroy_user_session_path, method: :delete do %>
-                <button class="nav-link btn btn-link">
-                  <i class="fa fa-sign-out"></i> Logout
-                </button>
-              <% end %>
+            <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-secondary  btn-sm" %>
             </li>
           </ul>
         <% end %>

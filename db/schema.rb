@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_19_082810) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_21_140431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_082810) do
     t.string "measurement_unit"
     t.integer "price"
     t.string "unit"
+    t.integer "user_id"
+    t.integer "quantity"
   end
 
   create_table "inventories", force: :cascade do |t|
@@ -40,7 +42,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_082810) do
     t.datetime "updated_at", null: false
     t.integer "quantity"
     t.integer "food_id"
+    t.text "description"
+    t.bigint "recipe_id", default: 1
+    t.index ["recipe_id"], name: "index_inventories_on_recipe_id"
     t.index ["user_id"], name: "index_inventories_on_user_id"
+  end
+
+  create_table "recipe_foods", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -66,12 +78,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_082810) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "role"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "food_recipes", "foods"
   add_foreign_key "food_recipes", "recipes"
+  add_foreign_key "inventories", "recipes"
   add_foreign_key "inventories", "users"
   add_foreign_key "recipes", "users"
 end

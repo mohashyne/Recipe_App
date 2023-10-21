@@ -19,16 +19,57 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    @inventories = @recipe.inventories
+    # @recipe = Recipe.find(params[:id])
+    # rescue ActiveRecord::RecordNotFound
+    # redirect_to recipes_path, alert: 'Recipe not found.'
+    @recipe = Recipe.includes(:food_recipes).find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to recipes_path, alert: 'Recipe not found.'
-  end
-
-  def public
-    @public_recipes = Recipe.where(public: true)
+    @inventories = Inventory.all
   end
 
   def update_status
     @recipe = Recipe.find(params[:id])
-    @recipe.update(public: params[:public]) if params[:public].present?
+    if @recipe.update(public: params[:public])
+      render json: { status: 'success' }
+    else
+      render json: { status: 'error', message: @recipe.errors.full_messages.join(', ') }, status: 400
+    end
+  end
+
+  def new
+    @recipe = Recipe.new
+  end
+
+  def create
+    @recipe = current_user.recipes.new(recipe_params)
+
+    if @recipe.save
+      redirect_to recipes_path, Notice: 'Recipes added successfully'
+    else
+      flash[:notice] = @recipe.errors.full_messages.join(', ')
+      redirect_to request.referrer
+    end
+  end
+
+  def public_recipes
+    @recipes = Recipe.where(public: true).order(created_at: :desc)
+  end
+
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    if @recipe.destroy
+      flash[:success] = "Recipe removed successfully."
+    else
+      flash[:error] = "Error removing the recipe."
+    end
+    redirect_to recipes_path
+  end
+
+  private
+
+  def recipe_params
+    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public)
   end
 end

@@ -1,55 +1,136 @@
 <div class="container">
-  <h1 class="display-4"><%= @recipe.name %></h1>
+  <h1 class="display-4 recipe-name"><%= @recipe.name %></h1>
 
   <div class="row">
     <div class="col-md-6">
-      <h2 class="h4">Preparation Time: <%= @recipe.preparation_time %></h2>
+      <h2 class="h4 preparation-time">Preparation Time: <%= @recipe.preparation_time %></h2>
+      <h2 class="h4 cooking-time">Cooking Time: <%= @recipe.cooking_time %></h2>
+    </div>
 
+    <%# Toggle button for public/private %>
+    <div class="col-md-6">
       <% if can? :manage, @recipe %>
-        <div>
+        <div class="toggle-container">
           <%= turbo_frame_tag "Public" do %>
-            <%= button_to update_status_recipe_path(@recipe), method: :patch, class: 'toggle-button' do %>
-              <span class="toggle-button-title">Public</span>
-              <span class="toggle-button__label <%= 'is_public' if @recipe.public %>"></span>
-            <% end %>
+            <button class="toggle-button <%= 'is-public' if @recipe.public %>" id="toggleButton">
+              <span class="toggle-label">Public</span>
+              <div class="toggle-switch">
+                <div class="toggle-handle"></div>
+              </div>
+            </button>
           <% end %>
         </div>
       <% end %>
     </div>
 
-<div class="col-md-6">
-    <h2 class="h4">Cooking Time: <%= @recipe.cooking_time %></h2>
-</div>
-
-    <h2 class="h4">Description:</h2>
+    <h2 class="h4 description">Description:</h2>
     <p><%= @recipe.description %></p>
 
-   <div class="row justify-content-between">
-  <div class="col-md-6 mb-3"> 
-    <%= link_to 'Generate shopping list', foods_path, class: 'btn btn-primary btn-block' %>
+    <div class="row justify-content-between">
+      <div class="col-md-6 mb-3">
+        <%= link_to 'Generate shopping list', general_shopping_list_path, class: 'btn btn-primary btn-block generate-shopping-button', id: 'generateShoppingButton' %>
+      </div>
+      <div class="col-md-6">
+        <% if can? :manage, @recipe %>
+          <%= link_to 'Add Ingredient', foods_path, class: 'btn btn-secondary btn-block add-ingredient-button' %>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class="col-md-6"> 
-    <% if can? :manage, @recipe %>
-      <%= link_to 'Add Ingredient', foods_path, class: 'btn btn-secondary btn-block' %>
-    <% end %>
+</div>
+
+  <div class="inventory-section">
+    <%= render 'inventories/show' %>
+  </div>
+
+<!-- Inventory Modal -->
+<div id="inventoryModal" class="modal">
+  <div class="modal-content">
+    <h2>Generating Shopping List</h2>
+    <h3>Choose an inventory to use</h3>
+    <select id="inventoryDropdown">
+     <% @inventories.each do |inventory| %>
+    <option value="<%= inventory.id %>"><%= inventory.food.name %></option>
+  <% end %>
+    </select>
+    <button id="generateInventoryButton">Generate</button>
   </div>
 </div>
 
 
-    <% if can? :manage, @recipe %>
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th>Food</th>
-            <th>Quantity</th>
-            <th>Value</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody class="table-body">
-          <%= render partial: 'partials/table_recipe_foods_item', collection: @recipe.food_recipes, as: :food_recipe %>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
-</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const generateShoppingButton = document.getElementById('generateShoppingButton');
+  const inventoryModal = document.getElementById('inventoryModal');
+  const generateInventoryButton = document.getElementById('generateInventoryButton');
+  const closeInventoryButton = document.getElementById('closeInventoryButton');
+  const inventoryDropdown = document.getElementById('inventoryDropdown');
+
+  // Handle the "Generate Shopping List" button click
+  generateShoppingButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    inventoryModal.style.display = 'block';
+  });
+
+  // Handle the "Close" button click
+  closeInventoryButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    inventoryModal.style.display = 'none';
+  });
+
+  // Handle the "Generate" button click
+  generateInventoryButton.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    // Get the selected inventory value from the dropdown
+    const selectedInventory = inventoryDropdown.value;
+
+    // Construct the URL for the shopping list page with the selected inventory
+    const shoppingListURL = `/shopping_list/${selectedInventory}`;
+
+    // Redirect to the shopping list page
+    window.location.href = shoppingListURL;
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.getElementById('toggleButton');
+
+    // Obtener el estado inicial basado en la clase del botón
+    let isPublic = toggleButton.classList.contains('is-public');
+
+    // Function to update the button's state and class
+    const updateToggleButton = () => {
+      toggleButton.classList.toggle('is-public'); // Add or remove the 'is-public' class
+    };
+
+    // Add a click event listener to the button
+    toggleButton.addEventListener('click', function() {
+      // Send an AJAX request to update the recipe's status
+      fetch("<%= update_status_recipe_path(@recipe) %>", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": "<%= form_authenticity_token %>",
+        },
+        body: JSON.stringify({ public: !isPublic }),
+      })
+      .then((response) => {
+        if (response.ok) {
+          isPublic = !isPublic; // Toggle the state
+          updateToggleButton();
+        } else {
+          console.error("Failed to update recipe status");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    });
+});
+
+
+
+
+</script>
