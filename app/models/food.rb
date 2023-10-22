@@ -1,6 +1,7 @@
 class Food < ApplicationRecord
   has_many :food_recipes
   has_many :recipes, through: :food_recipes
+  belongs_to :user
   def name_with_measurement_unit
     "#{name} (#{measurement_unit})"
   end
