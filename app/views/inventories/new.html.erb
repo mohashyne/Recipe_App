@@ -1,0 +1,17 @@
+<h1>Add Food to Inventory</h1>
+
+<%= form_for @inventory do |f| %>
+  <div>
+    <%= f.label :food_id, "Select Food" %>
+    <%= f.collection_select :food_id, Food.all, :id, :name %>
+  </div>
+  <div>
+    <%= f.label :description, "description" %>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.label :quantity, "Quantity" %>
+    <%= f.number_field :quantity %>
+  </div>
+  <%= f.submit "Add to Inventory" %>
+<% end %>

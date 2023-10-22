@@ -1,0 +1,22 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @inventories.each do |inventory| %>
+      <tr>
+        <td><%= inventory.food.name %></td>
+        <td><%= inventory.quantity %> <%= inventory.food.measurement_unit %></td>
+        <td>
+          <%= form_with(model: inventory, local: false, html: { method: :delete, data: { confirm: 'Are you sure?' } }) do |form| %>
+            <%= form.submit 'Remove', class: 'btn btn-danger' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

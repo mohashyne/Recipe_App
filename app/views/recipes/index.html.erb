@@ -1,0 +1,31 @@
+<div class="container">
+  <h1 class="mt-4">My Recipes</h1>
+
+  <ul class="list-group mt-3">
+    <% @recipes.each do |recipe| %>
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+          <span>
+            <%= link_to recipe.name, recipe_path(recipe) %>
+            <p class="mt-2"><%= recipe.description %></p>
+          </span>
+          <% if @missing_ingredients[recipe.id] %>
+            <div class="d-flex">
+              <div class="missing-ingredients">
+                <p class="mb-1">Missing Ingredients:</p>
+                <ul>
+                  <% @missing_ingredients[recipe.id].each do |ingredient| %>
+                    <li><%= ingredient.name %></li>
+                  <% end %>
+                </ul>
+              </div>
+              <%= form_with(model: recipe, local: false, html: { method: :delete, data: { confirm: 'Are you sure?' }, class: 'ml-3' }) do |form| %>
+                <%= form.submit 'Remove', class: 'btn btn-danger' %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

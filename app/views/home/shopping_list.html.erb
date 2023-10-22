@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="food-recipe-container">
+    <h2 class="text-center">Shopping List</h2>
+    <div class="d-flex justify-content-between mt-4 mb-4">
+      <p>Amount of food items to buy: <%= @foods.length %></p>
+      <p>Total value of food needed: <%= @total_value %></p>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @foods.each do |food| %>
+          <tr>
+            <td><%= food.name %></td>
+            <td><%= "#{food.quantity} #{food.measurement_unit}" %></td>
+            <td>$ <%= food.price * food.quantity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
